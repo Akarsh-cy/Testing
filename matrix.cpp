@@ -32,7 +32,7 @@ class Matrix{
 //Destructor
  ~Matrix(){
     if(data){
-    for(size_t i=0;i<r;++i){
+    for(size_t i=0;i<row;++i){
       delete []data[i];
     }//for ends
       delete []data;
