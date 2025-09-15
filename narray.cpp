@@ -7,7 +7,7 @@ private:
   double* data;
 
 public:
-  Narray():=default;
+  Narray():
     m_length{0},data{nullptr}
     {
     }
@@ -28,28 +28,35 @@ public:
   }
   //destroyer
 
-  Narray operator+(const Narray a,const                              Narray b){
-    m_length=a.length()+b.length();
-    data =new double[m_length]();
-    for(int i=0;i<a.m_length;++i){
-      data[i]=a.data[i];
-    }
-   for(int i=a.m_length;i<m_length;++i){
-       data[i]=b.data[i-a.m_length];
 
-  }
-    return *this;
-  }
-  //overload assignment
+friend  Narray operator+(const Narray a,                        const Narray b);
 
 
 
-
-
-  std::size_t length(){
+  std::size_t length()const{
     return m_length;
   }
 
 
 
 };//class ends
+
+
+  Narray operator+(const Narray a,const                              Narray b){
+  Narray obj;
+    obj.m_length=a.length()+b.length();
+   obj.data =new double[obj.m_length]();
+    for(int i=0;i<a.m_length;++i){
+      obj.data[i]=a.data[i];
+    }
+for(int i=a.m_length;i<obj.m_length;++i){
+       obj.data[i]=b.data[i-a.m_length];
+
+  }
+    return obj;
+  }
+  //overload assignment
+
+int main(){
+
+}
