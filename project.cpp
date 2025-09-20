@@ -126,4 +126,35 @@ void draw() const override{
 };
 int main(){
 
+  std::vector<Shape*> shape(3);
+  Circle c=Circle(6.9);
+  Shape* fc=&c;
+  Rectangle r=Rectangle(7,8);
+  Shape* fr=&r;
+  Triangle t=Triangle(6,7,9);
+  Shape* ft=&t;
+
+shape.push_back(fc);
+shape.push_back(fr);
+shape.push_back(ft);
+
+
+
+
+for(auto item:shape){
+    std::cout<<"The area of curve is:"
+             <<item->getarea()
+             <<"\n";
+    std::cout<<"The peri of curve is:"
+             <<item->getarea()
+             <<"\n\n\n";
+    std::cout<<"The curve has shape :";
+            item->draw();
+    std::cout<<"\n";
+
+
+
+
+  }
+
 }
