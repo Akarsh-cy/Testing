@@ -152,7 +152,8 @@ for(auto item:shape){
     std::cout<<"The peri of curve is:"
              <<item->getperimeter()
              <<"\n\n\n";
-    std::cout<<"The curve has shape :";
+    std::cout<<"The curve has shape :"
+             <<std::endl;
             item->draw();
     std::cout<<"\n";
 
