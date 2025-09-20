@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<memory>
+#include<cmath>
 
 class Shape{
 public:
@@ -33,9 +34,12 @@ virtual void draw()const override{
 double t=r/2;
   for(int i=-r;i<r;++i){
   for(int j=-r;j<r;++j){
-    if(std::abs(i*i+j*j-r*r)<=t)
+    if(std::abs(i*i+j*j-r*r)<=t){
       std::cout<<"0";
+          }
+    else{
       std::cout<<" ";
+          }
      }
 std::cout<<"\n";
   }
@@ -96,7 +100,7 @@ Triangle(double x=1,double y=1,double z=1)
 virtual ~Triangle() override=default;
 
 virtual double getarea()const override{
-return s*(s-a)*(s-b)*(s-c);
+return sqrt(s*(s-a)*(s-b)*(s-c));
 }
 
 virtual double getperimeter()const override{
@@ -126,7 +130,7 @@ void draw() const override{
 };
 int main(){
 
-  std::vector<Shape*> shape(3);
+  std::vector<Shape*> shape;
   Circle c=Circle(6.9);
   Shape* fc=&c;
   Rectangle r=Rectangle(7,8);
@@ -146,7 +150,7 @@ for(auto item:shape){
              <<item->getarea()
              <<"\n";
     std::cout<<"The peri of curve is:"
-             <<item->getarea()
+             <<item->getperimeter()
              <<"\n\n\n";
     std::cout<<"The curve has shape :";
             item->draw();
