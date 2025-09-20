@@ -3,6 +3,8 @@
 #include<memory>
 #include<cmath>
 
+//base abstract class
+//contains pure function
 class Shape{
 public:
   virtual ~Shape()=default;
@@ -16,34 +18,36 @@ class Circle:public Shape{
 private:
   double m_radius;
 public:
+
   Circle(double r):m_radius{r}{}
   virtual ~Circle() override= default;
 
-virtual double getarea()const override{
-return 3.14159*m_radius*m_radius;
-}
+  virtual double getarea()const override  {
+    return 3.14159*m_radius*m_radius;
+  }
 
-virtual double getperimeter()const override{
+  virtual double getperimeter()const override{
 return 3.14159*m_radius*2;
-}
+  }
 
 virtual void draw()const override{
     double r=m_radius;
 
   if (r>0){
-double t=r/2;
-  for(int i=-r;i<r;++i){
-  for(int j=-r;j<r;++j){
-    if(std::abs(i*i+j*j-r*r)<=t){
-      std::cout<<"0";
-          }
-    else{
-      std::cout<<" ";
-          }
-     }
-std::cout<<"\n";
-  }
-  }
+    double t=r/2;
+    for(int i=-r;i<r;++i){
+      for(int j=-r;j<r;++j){
+        if(std::abs(i*i+j*j-r*r)<=t){
+          std::cout<<"0";
+        }//if ends
+        else{
+          std::cout<<" ";
+        }//else ends
+
+      }//inner for ends
+    std::cout<<"\n";
+    }//outer for ends
+  }//big if ends
 else
 {
 std::cout<<std::endl;
@@ -108,7 +112,8 @@ return a+b+c;
 }
 
 void draw() const override{
-    int times=a;
+    //abstracted middle pyramid
+    int times=static_cast<int>(a);
     auto spacegive=[](int n){
       for(int i=0;i<n;i++){
         std::cout<<" ";
@@ -130,36 +135,29 @@ void draw() const override{
 };
 int main(){
 
-  std::vector<Shape*> shape;
-  Circle c=Circle(6.9);
-  Shape* fc=&c;
-  Rectangle r=Rectangle(7,8);
-  Shape* fr=&r;
-  Triangle t=Triangle(6,7,9);
-  Shape* ft=&t;
+std::vector<std::unique_ptr<Shape>>
+shape;
 
-shape.push_back(fc);
-shape.push_back(fr);
-shape.push_back(ft);
+shape.push_back(std::make_unique<Circle>(6.9));
+shape.push_back(std::make_unique<Rectangle>(7,6));
+shape.push_back(std::make_unique<Triangle>(6));
 
+for(auto& item:shape){
+  std::cout<<"\n-----------------------"
+           <<"\n";
 
-
-
-for(auto item:shape){
-    std::cout<<"The area of curve is:"
-             <<item->getarea()
-             <<"\n";
-    std::cout<<"The peri of curve is:"
-             <<item->getperimeter()
-             <<"\n\n\n";
-    std::cout<<"The curve has shape :"
-             <<std::endl;
-            item->draw();
-    std::cout<<"\n";
-
-
-
+  std::cout<<"The area of curve is:"
+           <<item->getarea()
+           <<"\n";
+  std::cout<<"The peri of curve is:"
+           <<item->getperimeter()
+           <<"\n\n\n";
+  std::cout<<"The curve has shape :"
+           <<std::endl<<std::endl;
+           item->draw();
+    std::cout<<"\n---------------------"
+             <<"\n\n";
 
   }
-
+return 0;
 }
