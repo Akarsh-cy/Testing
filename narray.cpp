@@ -1,62 +1,88 @@
 #include<iostream>
 #include<cstddef>
-class Narray{
 
+template<typename>
+class Narray{
 private:
-  std::size_t m_length{};
-  double* data;
+    std::size_t m_length;
+    std::size_t m_capacity;
+    T* data;
 
 public:
-  Narray():
-    m_length{0},data{nullptr}
-    {
-    }
 
-  //default constructor
+Narray()=default
+:m_length{0},data{nullptr},m_capacity{0}
+  {
+  }//default constructor
 
-  Narray(std::size_t size){
-
-    if(size>0){
-      data=new double[size]();
-      m_length=size;
-  }
-  }
-  //construstor no 2
+  Narray(std::size_t c)
+  :m_capacity{c},m_length{0}
+  {
+    data =new T[m_capacity](0);
+  }//construct capacity c
 
  ~Narray(){
-   delete[] data;
+    delete[] data;
+  }//destructor
+
+
+//copy constructor
+Narray(const Narray& source){
+assert(this->m_capacity==source.m_capacity){
+  this->m_length=source.m_length
+  for(int i=0;i<m_length;++i){
+    data[i]=source.data[i];
+      }//for ends
+    }//if ends
   }
-  //destroyer
+//copy constructor ends
 
 
-friend  Narray operator+(const Narray a,                        const Narray b);
+//copy assignment
+Narray& operator=(const Narray& source){
+if(this==&source){
+  return *this;
+    }// self assignment done
 
-
-
-  std::size_t length()const{
-    return m_length;
+//clean
+if(data){
+      delete[] data;
+    }
+this->m_capacity=source.m_capacity;
+this->m_length=source.m_length;
+this->data=new T[capacity]();
+for(int i=0;i<m_length;++i){
+data[i]=source.data[i];
+    }//for ends
+  return *this;
   }
+//copy assignment done
+
+
+//move operator
+Narray& operator=(const Narray& source)
+noexcept
+  {
+ if(this==&source){
+      return *this;
+    }//self assignment
+this->m_capacity=source.m_capacity;
+this->m_length=source.m_length;
+    if(data){
+      delete[]data;
+    }
+data=source.data;
+source.m_capacity=0;
+source.m_length=0;
+source.data=nullptr;
+
+
+return *this;
+  }//move operator ends
+
+
+
 
 
 
 };//class ends
-
-
-  Narray operator+(const Narray a,const                              Narray b){
-  Narray obj;
-    obj.m_length=a.length()+b.length();
-   obj.data =new double[obj.m_length]();
-    for(int i=0;i<a.m_length;++i){
-      obj.data[i]=a.data[i];
-    }
-for(int i=a.m_length;i<obj.m_length;++i){
-       obj.data[i]=b.data[i-a.m_length];
-
-  }
-    return obj;
-  }
-  //overload assignment
-
-int main(){
-
-}

@@ -14,8 +14,8 @@ class Matrix{
   Matrix(size_t r=1,size_t c=1){
     if(r!=0 && c!=0)
       {
-      row{r};
-      col{c};
+      row=r;
+      col=c;
       data=new double*[r];
     for(size_t i=0;i<r;++i){
       data[i]=new double[c]();
@@ -66,7 +66,7 @@ Matrix& operator=(const Matrix& m){
 //clean previous record
 if(data){
     for(size_t i=0;i<row;++i){
-      delete[]data[i]
+      delete[]data[i];
     }//for ends
       delete[] data;
   }//if ends
@@ -105,7 +105,7 @@ if(row!=0 && col!=0){
 
 
 //Move Assignment operator
-  Matrix& operator=(const Matrix&& m)
+  Matrix& operator=(Matrix&& m)
   noexcept
   {
     if(this==&m){
@@ -129,5 +129,8 @@ m.data=nullptr;
 
 return *this;
   }//Move Assigmrnt operator ends
-
+  }
 };//class ends
+int main(){
+
+}
