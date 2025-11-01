@@ -45,7 +45,8 @@ if(!visited[root->value]){
 visited[root->value]=true;
 for(auto item:root->edge){
 
-dfs_find(item,visited,target,path,nodeNumber);
+auto res=dfs_find(item,visited,target,path,nodeNumber);
+if(!res.empty()){return res;}
 }
  }
 }
