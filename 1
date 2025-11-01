@@ -20,13 +20,15 @@ std::vector<Node> make(int size) {
     return obj;
 }
 
-std::vector<int> dfs_find(Node* root, std::vector<bool>& visited,int& target,std::vector<int>& path,int& nodeNumber){
+std::vector<int> dfs_find(Node* root, std::vector<bool>& visited,int& target,std::vector<int>& path){
 
 if(root==nullptr && !path.empty()){
 path.pop_back();
-return path;
 }
 
+else if(root==nullptr && path.empty()){
+return path;
+}
 
 
 path.push_back(root->value);
@@ -34,23 +36,20 @@ path.push_back(root->value);
 if(path[path.size()-1]==target)return path;
 
 if(root->value>visited.size()){
-visited.resize(2*nodeNumber);
+visited.resize(2*root->value);
 visited[root->value]=true;
 }
 
 if(root->value<=visited.size()){
 
-if(!visited[root->value]){
-
-visited[root->value]=true;
+    if(!visited[root->value]){
 for(auto item:root->edge){
-
-dfs_find(item,visited,target,path,nodeNumber);
+dfs_find(item,visited,target,path);
 }
+visited[root->value]=true;
  }
 }
 
-return {};//empty vector symbolizes not found
 
 }
  
