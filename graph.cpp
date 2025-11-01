@@ -22,9 +22,9 @@ std::vector<Node> make(int size) {
 
 std::vector<int> dfs_find(Node* root, std::vector<bool>& visited,int& target,std::vector<int>& path,int& nodeNumber){
 
-if(root==nullptr && !path.empty()){
+if(root==nullptr){
 path.pop_back();
-return path;
+return {};
 }
 
 
@@ -51,6 +51,7 @@ if(!res.empty()){return res;}
  }
 }
 
+path.pop_back();
 return {};//empty vector symbolizes not found
 
 }
