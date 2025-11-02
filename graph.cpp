@@ -23,7 +23,6 @@ std::vector<Node> make(int size) {
 std::vector<int> dfs_find(Node* root, std::vector<bool>& visited,int& target,std::vector<int>& path,int& nodeNumber){
 
 if(root==nullptr){
-path.pop_back();
 return {};
 }
 
@@ -67,10 +66,13 @@ void dfs(Node* start, std::vector<int>& path) {
     for (auto item : start->edge)
         dfs(item, path);
 }
-
 int main() {
-    auto i = make(12);
 
+    //pasted from gpt to test
+    // Create 13 nodes
+    auto i = make(13);
+
+    // Build connections (graph edges)
     i[0].join(&i[3]);
     i[0].join(&i[1]);
     i[1].join(&i[2]);
@@ -82,14 +84,31 @@ int main() {
     i[10].join(&i[11]);
     i[4].join(&i[6]);
     i[4].join(&i[5]);
-
-    i.push_back(Node(13));
     i[11].join(&i[12]);
 
-    std::vector<int> sol;
-    dfs(&i[0], sol);
+    // ---- DFS full traversal ----
+    std::vector<int> traversal;
+    dfs(&i[0], traversal);
 
-    for (auto item : sol)
-        std::cout << item << " ";
-    std::cout << std::endl;
+    std::cout << "Full DFS traversal: ";
+    for (auto x : traversal) std::cout << x << " ";
+    std::cout << "\n";
+
+    // ---- DFS path-finding demo ----
+    int target = 11;  // node value to find
+    std::vector<bool> visited(13, false);
+    std::vector<int> path;
+    int nodeCount = 13;
+
+    auto result = dfs_find(&i[0], visited, target, path, nodeCount);
+
+    if (result.empty())
+        std::cout << "Target " << target << " not found\n";
+    else {
+        std::cout << "Path from root to " << target << ": ";
+        for (auto x : result) std::cout << x << " ";
+        std::cout << "\n";
+    }
+
+    return 0;
 }
