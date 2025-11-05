@@ -70,7 +70,7 @@ Tree* find_min(Tree* root){
 
 }//find_min function end
 
-void delete_node(const int key,Tree* root){
+void delete_node(const int key,Tree*& root){
   if(key==0){return;}
   else if(root==nullptr){return;}
 
@@ -85,7 +85,7 @@ root=nullptr;
   else if(root->m_left!=nullptr&&root->m_right==nullptr){
      Tree* temp=root;
      root=root->m_left;
-     temp->~Tree();
+     delete temp;
   //i think its not necessary but yes
     }
 
@@ -94,7 +94,7 @@ root=nullptr;
   else if(root->m_left==nullptr&&root->m_right!=nullptr){
      Tree* temp=root;
      root=root->m_right;
-     temp->~Tree();
+     delete temp;
   //i think its not necessary but yes
     }
 
@@ -107,7 +107,7 @@ root=nullptr;
 
     Tree* temp2=root;
     root=&temp;
-    temp2->~Tree();
+    delete temp2;
     delete_node(temp.m_key,root->m_right);
     //i dont think necessery{destructor}
       }
