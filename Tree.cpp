@@ -15,6 +15,8 @@ class Tree{
       m_right=nullptr;
      }
   ~Tree(){
+    delete m_left;
+    delete m_right;
   }
 
 };
@@ -70,12 +72,20 @@ Tree* find_min(Tree* root){
 
 }//find_min function end
 
-void delete_node(const int key,Tree*& root){
+void delete_node(const int& key,Tree*& root){
+
   if(key==0){return;}
   else if(root==nullptr){return;}
 
+
+  if(key<root->m_key){
+    delete_node(key,root->m_left);
+  }
+  else if(key>root->m_key){
+    delete_node(key,root->m_right);
+  }
   //handles the main deletion process
-  if(key==root->m_key){
+  else(key==root->m_key){
 
   //no children case
   if(root->m_left==nullptr&&root->m_right==nullptr)
@@ -86,7 +96,6 @@ root=nullptr;
      Tree* temp=root;
      root=root->m_left;
      delete temp;
-  //i think its not necessary but yes
     }
 
   //only right child
@@ -95,29 +104,19 @@ root=nullptr;
      Tree* temp=root;
      root=root->m_right;
      delete temp;
-  //i think its not necessary but yes
     }
 
+  //both child
   else{
     //storing the node in temp
-    Tree temp=*find_min(root->m_right);
+    Tree* temp=find_min(root->m_right);
+    root->m_value=temp->m_value;
+    root->m_key=temp->m_key;
+    delete_node(temp->m_key,root->m_right);
+    }
 
-    temp.m_left=root->m_left;
-    temp.m_right=root->m_right;
-
-    Tree* temp2=root;
-    root=&temp;
-    delete temp2;
-    delete_node(temp.m_key,root->m_right);
-    //i dont think necessery{destructor}
-      }
     }//main functional body end
-   delete_node(key,root->m_left);
-   delete_node(key,root->m_right);
-   
-
-
-
+ 
 
 }//delete function end
 
