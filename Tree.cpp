@@ -14,11 +14,7 @@ class Tree{
       m_left=nullptr;
       m_right=nullptr;
      }
-  ~Tree(){
-    delete m_left;
-    delete m_right;
-  }
-
+  ~Tree()=default;
 };
 
 //height recursive
@@ -59,6 +55,7 @@ void insert(Tree* src,Tree*& root){
 return;
 }
 
+// gives a pointer to minimum node
 
 Tree* find_min(Tree* root){
   
@@ -72,8 +69,11 @@ Tree* find_min(Tree* root){
 
 }//find_min function end
 
+
+//delete node with a key and tree root
 void delete_node(const int& key,Tree*& root){
 
+  //default key not supported
   if(key==0){return;}
   else if(root==nullptr){return;}
 
@@ -85,11 +85,12 @@ void delete_node(const int& key,Tree*& root){
     delete_node(key,root->m_right);
   }
   //handles the main deletion process
-  else(key==root->m_key){
+  else {
 
   //no children case
-  if(root->m_left==nullptr&&root->m_right==nullptr)
-root=nullptr;
+  if(root->m_left==nullptr&&root->m_right==nullptr){
+delete root;
+    }
 
   //only left child
   else if(root->m_left!=nullptr&&root->m_right==nullptr){
@@ -119,6 +120,8 @@ root=nullptr;
  
 
 }//delete function end
+
+
 
 
 int main(){}
