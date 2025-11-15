@@ -9,12 +9,13 @@ int main(int argc,char* argv[]){
     std::cerr<<"Function takes 2 args"
              <<" but "
              <<argc<<" were provided\n";
+    return 1;
   }//if end brace
   else if(argc<3){
     std::cerr<<"Function takes 2 args"
              <<" but "
              <<argc<<" were provided\n";
-
+    return 1;
   }
 
 std::vector<std::string_view> commands;
